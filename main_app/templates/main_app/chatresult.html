@@ -23,7 +23,7 @@
     document.addEventListener("DOMContentLoaded", init);
 
     function init() {
-      let url = `https://api.giphy.com/v1/gifs/search?api_key=${APIKEY}&limit=3&q=`;
+      let url = `https://api.giphy.com/v1/gifs/search?api_key=${APIKEY}&limit=1&q=`;
       let str = '{{result_bert}}';
       url = url.concat(str);
       console.log(url);
@@ -35,15 +35,15 @@
             console.log(content.data);
             console.log("META", content.meta);
 
-            // (추가)반복문으로 이미지 전부 보여주기
+            // giphy에서 분석된 감정을 검색한 결과 움짤을 가져와 figure 태그 안에 img 태그 추가
             let fig = document.createElement("figure");
             fig.style="text-align:right;";
             let img = document.createElement("img");
             img.src = content.data[0].images.downsized.url;
             img.alt = content.data[0].title;
             fig.appendChild(img);
-            let out = document.querySelector(".out");
-            out.insertAdjacentElement("afterbegin", fig);
+            let out = document.querySelector(".out"); // class명이 out인 태그 찾기
+            out.insertAdjacentElement("afterbegin", fig); // 그 안에 생성한 figure 태그 추가
           })
           .catch(err => {
             console.error(err);
